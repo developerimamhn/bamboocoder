@@ -1,26 +1,165 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Bamboo Coders design tokens.
+ * Change the brand here — every component reads from these variables.
+ */
+@theme {
+  /* Surfaces */
+  --color-canvas: #f6f6f1;
+  --color-surface: #ffffff;
+  --color-sunken: #efefe8;
+  --color-night: #0e1611;
+  --color-night-soft: #17221b;
+
+  /* Text */
+  --color-ink: #131713;
+  --color-ink-soft: #343b35;
+  --color-muted: #5f675f;
+  --color-subtle: #868d86;
+
+  /* Lines */
+  --color-line: #e2e3dc;
+  --color-line-strong: #cdd0c6;
+
+  /* Bamboo accent */
+  --color-bamboo-50: #eef5ef;
+  --color-bamboo-100: #dcebdf;
+  --color-bamboo-200: #b9d7c1;
+  --color-bamboo-300: #8fbf9d;
+  --color-bamboo-400: #5fa274;
+  --color-bamboo-500: #3c8656;
+  --color-bamboo-600: #2e6e46;
+  --color-bamboo-700: #245738;
+  --color-bamboo-800: #1b412a;
+  --color-bamboo-900: #12291b;
+
+  /* Status */
+  --color-danger: #b4232c;
+  --color-danger-soft: #fbeceb;
+  --color-warning: #8a5a00;
+  --color-warning-soft: #fdf3dc;
+
+  /* Type */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Shape */
+  --radius-card: 1.25rem;
+  --radius-control: 0.75rem;
+
+  --shadow-soft: 0 1px 2px rgb(19 23 19 / 0.04), 0 4px 16px -4px rgb(19 23 19 / 0.06);
+  --shadow-lift: 0 2px 4px rgb(19 23 19 / 0.04), 0 18px 40px -12px rgb(19 23 19 / 0.14);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-bamboo-200);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-bamboo-500);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Long-form article and legal copy */
+  .prose-bc {
+    color: var(--color-ink-soft);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .prose-bc > * + * {
+    margin-top: 1.25rem;
+  }
+  .prose-bc h2 {
+    color: var(--color-ink);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-top: 2.75rem;
+  }
+  .prose-bc h3 {
+    color: var(--color-ink);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-top: 2rem;
+  }
+  .prose-bc ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+  .prose-bc li + li {
+    margin-top: 0.5rem;
+  }
+  .prose-bc a {
+    color: var(--color-bamboo-700);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-bc strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(19 23 19 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(19 23 19 / 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@utility select-chevron {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235f675f' stroke-width='2'><path d='m6 9 6 6 6-6'/></svg>");
+  background-size: 18px;
+  background-position: right 14px center;
+  background-repeat: no-repeat;
+}
+
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
